@@ -1,0 +1,10 @@
+[server] listening on 0.0.0.0:5140
+
+=== REPORT ===
+host    sev          sent   recv   loss%   avg_ms   max_ms
+10.0.0.1DEBUG          75     75    0.00     0.37     2.86
+10.0.0.1INFO           67     67    0.00     0.39     2.17
+10.0.0.1WARNING        36     36    0.00     0.36     1.00
+10.0.0.1ERROR          16     16    0.00     0.28     0.93
+10.0.0.1CRITICAL        6      6    0.00     0.44     0.56
+[server] saved results/test/aggregated.log and results/test/stats.csv

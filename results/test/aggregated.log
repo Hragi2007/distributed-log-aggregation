@@ -1,0 +1,200 @@
+2026-10-29 11:03:34 10.0.0.1 DEBUG seq=0 delay_ms=2.86 cache lookup took 3ms
+2026-10-29 11:03:34 10.0.0.1 DEBUG seq=1 delay_ms=0.25 cache lookup took 3ms
+2026-10-29 11:03:34 10.0.0.1 DEBUG seq=2 delay_ms=0.77 cache lookup took 3ms
+2026-10-29 11:03:34 10.0.0.1 WARNING seq=3 delay_ms=0.52 disk usage above 80%
+2026-10-29 11:03:34 10.0.0.1 INFO seq=4 delay_ms=0.40 request served OK
+2026-10-29 11:03:34 10.0.0.1 DEBUG seq=5 delay_ms=0.43 cache lookup took 3ms
+2026-10-29 11:03:34 10.0.0.1 INFO seq=6 delay_ms=0.45 request served OK
+2026-10-29 11:03:34 10.0.0.1 WARNING seq=7 delay_ms=0.51 disk usage above 80%
+2026-10-29 11:03:34 10.0.0.1 WARNING seq=8 delay_ms=0.29 disk usage above 80%
+2026-10-29 11:03:34 10.0.0.1 DEBUG seq=9 delay_ms=1.19 cache lookup took 3ms
+2026-10-29 11:03:34 10.0.0.1 INFO seq=10 delay_ms=0.54 request served OK
+2026-10-29 11:03:34 10.0.0.1 INFO seq=11 delay_ms=0.48 request served OK
+2026-10-29 11:03:34 10.0.0.1 INFO seq=12 delay_ms=0.58 request served OK
+2026-10-29 11:03:34 10.0.0.1 WARNING seq=13 delay_ms=0.41 disk usage above 80%
+2026-10-29 11:03:34 10.0.0.1 ERROR seq=14 delay_ms=0.28 db connection failed
+2026-10-29 11:03:34 10.0.0.1 DEBUG seq=15 delay_ms=0.66 cache lookup took 3ms
+2026-10-29 11:03:34 10.0.0.1 INFO seq=16 delay_ms=0.64 request served OK
+2026-10-29 11:03:34 10.0.0.1 INFO seq=17 delay_ms=0.61 request served OK
+2026-10-29 11:03:34 10.0.0.1 DEBUG seq=18 delay_ms=0.51 cache lookup took 3ms
+2026-10-29 11:03:34 10.0.0.1 INFO seq=19 delay_ms=0.80 request served OK
+2026-10-29 11:03:34 10.0.0.1 WARNING seq=20 delay_ms=0.57 disk usage above 80%
+2026-10-29 11:03:34 10.0.0.1 CRITICAL seq=21 delay_ms=0.43 service down, no heartbeat
+2026-10-29 11:03:34 10.0.0.1 WARNING seq=22 delay_ms=0.50 disk usage above 80%
+2026-10-29 11:03:34 10.0.0.1 DEBUG seq=23 delay_ms=0.60 cache lookup took 3ms
+2026-10-29 11:03:35 10.0.0.1 DEBUG seq=24 delay_ms=0.45 cache lookup took 3ms
+2026-10-29 11:03:35 10.0.0.1 DEBUG seq=25 delay_ms=0.76 cache lookup took 3ms
+2026-10-29 11:03:35 10.0.0.1 CRITICAL seq=26 delay_ms=0.48 service down, no heartbeat
+2026-10-29 11:03:35 10.0.0.1 INFO seq=27 delay_ms=0.26 request served OK
+2026-10-29 11:03:35 10.0.0.1 INFO seq=28 delay_ms=0.69 request served OK
+2026-10-29 11:03:35 10.0.0.1 WARNING seq=29 delay_ms=1.00 disk usage above 80%
+2026-10-29 11:03:35 10.0.0.1 ERROR seq=30 delay_ms=0.62 db connection failed
+2026-10-29 11:03:35 10.0.0.1 WARNING seq=31 delay_ms=0.19 disk usage above 80%
+2026-10-29 11:03:35 10.0.0.1 ERROR seq=32 delay_ms=0.93 db connection failed
+2026-10-29 11:03:35 10.0.0.1 WARNING seq=33 delay_ms=0.29 disk usage above 80%
+2026-10-29 11:03:35 10.0.0.1 INFO seq=34 delay_ms=2.17 request served OK
+2026-10-29 11:03:35 10.0.0.1 INFO seq=35 delay_ms=0.29 request served OK
+2026-10-29 11:03:35 10.0.0.1 INFO seq=36 delay_ms=0.66 request served OK
+2026-10-29 11:03:35 10.0.0.1 WARNING seq=37 delay_ms=0.35 disk usage above 80%
+2026-10-29 11:03:35 10.0.0.1 INFO seq=38 delay_ms=0.62 request served OK
+2026-10-29 11:03:35 10.0.0.1 DEBUG seq=39 delay_ms=0.40 cache lookup took 3ms
+2026-10-29 11:03:35 10.0.0.1 WARNING seq=40 delay_ms=0.50 disk usage above 80%
+2026-10-29 11:03:35 10.0.0.1 DEBUG seq=41 delay_ms=0.24 cache lookup took 3ms
+2026-10-29 11:03:35 10.0.0.1 INFO seq=42 delay_ms=0.26 request served OK
+2026-10-29 11:03:35 10.0.0.1 DEBUG seq=43 delay_ms=0.51 cache lookup took 3ms
+2026-10-29 11:03:35 10.0.0.1 INFO seq=44 delay_ms=0.75 request served OK
+2026-10-29 11:03:35 10.0.0.1 CRITICAL seq=45 delay_ms=0.56 service down, no heartbeat
+2026-10-29 11:03:35 10.0.0.1 DEBUG seq=46 delay_ms=0.38 cache lookup took 3ms
+2026-10-29 11:03:35 10.0.0.1 INFO seq=47 delay_ms=0.47 request served OK
+2026-10-29 11:03:35 10.0.0.1 ERROR seq=48 delay_ms=0.51 db connection failed
+2026-10-29 11:03:35 10.0.0.1 DEBUG seq=49 delay_ms=0.32 cache lookup took 3ms
+2026-10-29 11:03:35 10.0.0.1 INFO seq=50 delay_ms=0.34 request served OK
+2026-10-29 11:03:35 10.0.0.1 WARNING seq=51 delay_ms=0.26 disk usage above 80%
+2026-10-29 11:03:35 10.0.0.1 DEBUG seq=52 delay_ms=0.30 cache lookup took 3ms
+2026-10-29 11:03:35 10.0.0.1 INFO seq=53 delay_ms=0.37 request served OK
+2026-10-29 11:03:35 10.0.0.1 INFO seq=54 delay_ms=0.32 request served OK
+2026-10-29 11:03:35 10.0.0.1 DEBUG seq=55 delay_ms=0.23 cache lookup took 3ms
+2026-10-29 11:03:35 10.0.0.1 DEBUG seq=56 delay_ms=0.27 cache lookup took 3ms
+2026-10-29 11:03:35 10.0.0.1 DEBUG seq=57 delay_ms=0.35 cache lookup took 3ms
+2026-10-29 11:03:35 10.0.0.1 INFO seq=58 delay_ms=0.32 request served OK
+2026-10-29 11:03:35 10.0.0.1 DEBUG seq=59 delay_ms=0.33 cache lookup took 3ms
+2026-10-29 11:03:35 10.0.0.1 DEBUG seq=60 delay_ms=0.12 cache lookup took 3ms
+2026-10-29 11:03:35 10.0.0.1 DEBUG seq=61 delay_ms=0.12 cache lookup took 3ms
+2026-10-29 11:03:35 10.0.0.1 DEBUG seq=62 delay_ms=0.21 cache lookup took 3ms
+2026-10-29 11:03:35 10.0.0.1 DEBUG seq=63 delay_ms=0.21 cache lookup took 3ms
+2026-10-29 11:03:35 10.0.0.1 INFO seq=64 delay_ms=0.41 request served OK
+2026-10-29 11:03:35 10.0.0.1 DEBUG seq=65 delay_ms=0.10 cache lookup took 3ms
+2026-10-29 11:03:35 10.0.0.1 INFO seq=66 delay_ms=0.10 request served OK
+2026-10-29 11:03:35 10.0.0.1 INFO seq=67 delay_ms=0.17 request served OK
+2026-10-29 11:03:35 10.0.0.1 CRITICAL seq=68 delay_ms=0.53 service down, no heartbeat
+2026-10-29 11:03:35 10.0.0.1 WARNING seq=69 delay_ms=0.09 disk usage above 80%
+2026-10-29 11:03:36 10.0.0.1 WARNING seq=70 delay_ms=0.11 disk usage above 80%
+2026-10-29 11:03:36 10.0.0.1 DEBUG seq=71 delay_ms=0.11 cache lookup took 3ms
+2026-10-29 11:03:36 10.0.0.1 ERROR seq=72 delay_ms=0.10 db connection failed
+2026-10-29 11:03:36 10.0.0.1 ERROR seq=73 delay_ms=0.10 db connection failed
+2026-10-29 11:03:36 10.0.0.1 WARNING seq=74 delay_ms=0.08 disk usage above 80%
+2026-10-29 11:03:36 10.0.0.1 DEBUG seq=75 delay_ms=0.12 cache lookup took 3ms
+2026-10-29 11:03:36 10.0.0.1 WARNING seq=76 delay_ms=0.24 disk usage above 80%
+2026-10-29 11:03:36 10.0.0.1 INFO seq=77 delay_ms=0.11 request served OK
+2026-10-29 11:03:36 10.0.0.1 DEBUG seq=78 delay_ms=0.14 cache lookup took 3ms
+2026-10-29 11:03:36 10.0.0.1 WARNING seq=79 delay_ms=0.11 disk usage above 80%
+2026-10-29 11:03:36 10.0.0.1 ERROR seq=80 delay_ms=0.10 db connection failed
+2026-10-29 11:03:36 10.0.0.1 DEBUG seq=81 delay_ms=0.11 cache lookup took 3ms
+2026-10-29 11:03:36 10.0.0.1 DEBUG seq=82 delay_ms=0.23 cache lookup took 3ms
+2026-10-29 11:03:36 10.0.0.1 WARNING seq=83 delay_ms=0.12 disk usage above 80%
+2026-10-29 11:03:36 10.0.0.1 INFO seq=84 delay_ms=0.11 request served OK
+2026-10-29 11:03:36 10.0.0.1 INFO seq=85 delay_ms=0.14 request served OK
+2026-10-29 11:03:36 10.0.0.1 CRITICAL seq=86 delay_ms=0.38 service down, no heartbeat
+2026-10-29 11:03:36 10.0.0.1 ERROR seq=87 delay_ms=0.13 db connection failed
+2026-10-29 11:03:36 10.0.0.1 DEBUG seq=88 delay_ms=0.26 cache lookup took 3ms
+2026-10-29 11:03:36 10.0.0.1 WARNING seq=89 delay_ms=0.13 disk usage above 80%
+2026-10-29 11:03:36 10.0.0.1 INFO seq=90 delay_ms=1.16 request served OK
+2026-10-29 11:03:36 10.0.0.1 ERROR seq=91 delay_ms=0.15 db connection failed
+2026-10-29 11:03:36 10.0.0.1 WARNING seq=92 delay_ms=0.12 disk usage above 80%
+2026-10-29 11:03:36 10.0.0.1 DEBUG seq=93 delay_ms=0.34 cache lookup took 3ms
+2026-10-29 11:03:36 10.0.0.1 DEBUG seq=94 delay_ms=0.11 cache lookup took 3ms
+2026-10-29 11:03:36 10.0.0.1 WARNING seq=95 delay_ms=0.31 disk usage above 80%
+2026-10-29 11:03:36 10.0.0.1 DEBUG seq=96 delay_ms=0.12 cache lookup took 3ms
+2026-10-29 11:03:36 10.0.0.1 INFO seq=97 delay_ms=0.11 request served OK
+2026-10-29 11:03:36 10.0.0.1 DEBUG seq=98 delay_ms=0.10 cache lookup took 3ms
+2026-10-29 11:03:36 10.0.0.1 DEBUG seq=99 delay_ms=0.10 cache lookup took 3ms
+2026-10-29 11:03:36 10.0.0.1 INFO seq=100 delay_ms=0.11 request served OK
+2026-10-29 11:03:36 10.0.0.1 DEBUG seq=101 delay_ms=0.12 cache lookup took 3ms
+2026-10-29 11:03:36 10.0.0.1 INFO seq=102 delay_ms=0.16 request served OK
+2026-10-29 11:03:36 10.0.0.1 INFO seq=103 delay_ms=0.14 request served OK
+2026-10-29 11:03:36 10.0.0.1 DEBUG seq=104 delay_ms=0.14 cache lookup took 3ms
+2026-10-29 11:03:36 10.0.0.1 INFO seq=105 delay_ms=0.14 request served OK
+2026-10-29 11:03:36 10.0.0.1 WARNING seq=106 delay_ms=0.34 disk usage above 80%
+2026-10-29 11:03:36 10.0.0.1 DEBUG seq=107 delay_ms=0.47 cache lookup took 3ms
+2026-10-29 11:03:36 10.0.0.1 ERROR seq=108 delay_ms=0.16 db connection failed
+2026-10-29 11:03:36 10.0.0.1 INFO seq=109 delay_ms=0.44 request served OK
+2026-10-29 11:03:36 10.0.0.1 ERROR seq=110 delay_ms=0.33 db connection failed
+2026-10-29 11:03:36 10.0.0.1 INFO seq=111 delay_ms=0.45 request served OK
+2026-10-29 11:03:37 10.0.0.1 WARNING seq=112 delay_ms=0.89 disk usage above 80%
+2026-10-29 11:03:37 10.0.0.1 INFO seq=113 delay_ms=0.41 request served OK
+2026-10-29 11:03:37 10.0.0.1 WARNING seq=114 delay_ms=0.54 disk usage above 80%
+2026-10-29 11:03:37 10.0.0.1 INFO seq=115 delay_ms=0.52 request served OK
+2026-10-29 11:03:37 10.0.0.1 DEBUG seq=116 delay_ms=0.41 cache lookup took 3ms
+2026-10-29 11:03:37 10.0.0.1 INFO seq=117 delay_ms=0.45 request served OK
+2026-10-29 11:03:37 10.0.0.1 INFO seq=118 delay_ms=0.48 request served OK
+2026-10-29 11:03:37 10.0.0.1 WARNING seq=119 delay_ms=0.25 disk usage above 80%
+2026-10-29 11:03:37 10.0.0.1 INFO seq=120 delay_ms=0.35 request served OK
+2026-10-29 11:03:37 10.0.0.1 DEBUG seq=121 delay_ms=0.44 cache lookup took 3ms
+2026-10-29 11:03:37 10.0.0.1 WARNING seq=122 delay_ms=0.36 disk usage above 80%
+2026-10-29 11:03:37 10.0.0.1 WARNING seq=123 delay_ms=0.27 disk usage above 80%
+2026-10-29 11:03:37 10.0.0.1 INFO seq=124 delay_ms=0.37 request served OK
+2026-10-29 11:03:37 10.0.0.1 WARNING seq=125 delay_ms=0.42 disk usage above 80%
+2026-10-29 11:03:37 10.0.0.1 DEBUG seq=126 delay_ms=0.37 cache lookup took 3ms
+2026-10-29 11:03:37 10.0.0.1 WARNING seq=127 delay_ms=0.50 disk usage above 80%
+2026-10-29 11:03:37 10.0.0.1 ERROR seq=128 delay_ms=0.25 db connection failed
+2026-10-29 11:03:37 10.0.0.1 DEBUG seq=129 delay_ms=0.44 cache lookup took 3ms
+2026-10-29 11:03:37 10.0.0.1 DEBUG seq=130 delay_ms=0.56 cache lookup took 3ms
+2026-10-29 11:03:37 10.0.0.1 INFO seq=131 delay_ms=0.47 request served OK
+2026-10-29 11:03:37 10.0.0.1 ERROR seq=132 delay_ms=0.49 db connection failed
+2026-10-29 11:03:37 10.0.0.1 DEBUG seq=133 delay_ms=0.31 cache lookup took 3ms
+2026-10-29 11:03:37 10.0.0.1 DEBUG seq=134 delay_ms=0.46 cache lookup took 3ms
+2026-10-29 11:03:37 10.0.0.1 DEBUG seq=135 delay_ms=0.30 cache lookup took 3ms
+2026-10-29 11:03:37 10.0.0.1 INFO seq=136 delay_ms=0.57 request served OK
+2026-10-29 11:03:37 10.0.0.1 INFO seq=137 delay_ms=0.47 request served OK
+2026-10-29 11:03:37 10.0.0.1 INFO seq=138 delay_ms=0.42 request served OK
+2026-10-29 11:03:37 10.0.0.1 WARNING seq=139 delay_ms=0.43 disk usage above 80%
+2026-10-29 11:03:37 10.0.0.1 INFO seq=140 delay_ms=0.27 request served OK
+2026-10-29 11:03:37 10.0.0.1 DEBUG seq=141 delay_ms=0.38 cache lookup took 3ms
+2026-10-29 11:03:37 10.0.0.1 DEBUG seq=142 delay_ms=0.48 cache lookup took 3ms
+2026-10-29 11:03:37 10.0.0.1 DEBUG seq=143 delay_ms=0.34 cache lookup took 3ms
+2026-10-29 11:03:37 10.0.0.1 DEBUG seq=144 delay_ms=0.38 cache lookup took 3ms
+2026-10-29 11:03:37 10.0.0.1 INFO seq=145 delay_ms=0.36 request served OK
+2026-10-29 11:03:37 10.0.0.1 INFO seq=146 delay_ms=0.43 request served OK
+2026-10-29 11:03:37 10.0.0.1 DEBUG seq=147 delay_ms=0.56 cache lookup took 3ms
+2026-10-29 11:03:37 10.0.0.1 DEBUG seq=148 delay_ms=0.45 cache lookup took 3ms
+2026-10-29 11:03:37 10.0.0.1 DEBUG seq=149 delay_ms=0.39 cache lookup took 3ms
+2026-10-29 11:03:37 10.0.0.1 INFO seq=150 delay_ms=0.45 request served OK
+2026-10-29 11:03:37 10.0.0.1 WARNING seq=151 delay_ms=0.44 disk usage above 80%
+2026-10-29 11:03:37 10.0.0.1 CRITICAL seq=152 delay_ms=0.29 service down, no heartbeat
+2026-10-29 11:03:37 10.0.0.1 DEBUG seq=153 delay_ms=0.25 cache lookup took 3ms
+2026-10-29 11:03:37 10.0.0.1 DEBUG seq=154 delay_ms=0.31 cache lookup took 3ms
+2026-10-29 11:03:37 10.0.0.1 ERROR seq=155 delay_ms=0.20 db connection failed
+2026-10-29 11:03:37 10.0.0.1 DEBUG seq=156 delay_ms=0.36 cache lookup took 3ms
+2026-10-29 11:03:37 10.0.0.1 WARNING seq=157 delay_ms=0.57 disk usage above 80%
+2026-10-29 11:03:38 10.0.0.1 DEBUG seq=158 delay_ms=0.60 cache lookup took 3ms
+2026-10-29 11:03:38 10.0.0.1 WARNING seq=159 delay_ms=0.47 disk usage above 80%
+2026-10-29 11:03:38 10.0.0.1 INFO seq=160 delay_ms=0.36 request served OK
+2026-10-29 11:03:38 10.0.0.1 INFO seq=161 delay_ms=0.58 request served OK
+2026-10-29 11:03:38 10.0.0.1 DEBUG seq=162 delay_ms=0.42 cache lookup took 3ms
+2026-10-29 11:03:38 10.0.0.1 DEBUG seq=163 delay_ms=0.48 cache lookup took 3ms
+2026-10-29 11:03:38 10.0.0.1 DEBUG seq=164 delay_ms=0.22 cache lookup took 3ms
+2026-10-29 11:03:38 10.0.0.1 DEBUG seq=165 delay_ms=0.38 cache lookup took 3ms
+2026-10-29 11:03:38 10.0.0.1 INFO seq=166 delay_ms=0.27 request served OK
+2026-10-29 11:03:38 10.0.0.1 INFO seq=167 delay_ms=0.49 request served OK
+2026-10-29 11:03:38 10.0.0.1 INFO seq=168 delay_ms=0.33 request served OK
+2026-10-29 11:03:38 10.0.0.1 DEBUG seq=169 delay_ms=0.31 cache lookup took 3ms
+2026-10-29 11:03:38 10.0.0.1 WARNING seq=170 delay_ms=0.35 disk usage above 80%
+2026-10-29 11:03:38 10.0.0.1 DEBUG seq=171 delay_ms=0.44 cache lookup took 3ms
+2026-10-29 11:03:38 10.0.0.1 DEBUG seq=172 delay_ms=0.51 cache lookup took 3ms
+2026-10-29 11:03:38 10.0.0.1 DEBUG seq=173 delay_ms=0.35 cache lookup took 3ms
+2026-10-29 11:03:38 10.0.0.1 INFO seq=174 delay_ms=0.46 request served OK
+2026-10-29 11:03:38 10.0.0.1 INFO seq=175 delay_ms=0.70 request served OK
+2026-10-29 11:03:38 10.0.0.1 DEBUG seq=176 delay_ms=0.63 cache lookup took 3ms
+2026-10-29 11:03:38 10.0.0.1 ERROR seq=177 delay_ms=0.11 db connection failed
+2026-10-29 11:03:38 10.0.0.1 INFO seq=178 delay_ms=0.09 request served OK
+2026-10-29 11:03:38 10.0.0.1 DEBUG seq=179 delay_ms=0.10 cache lookup took 3ms
+2026-10-29 11:03:38 10.0.0.1 DEBUG seq=180 delay_ms=0.10 cache lookup took 3ms
+2026-10-29 11:03:38 10.0.0.1 DEBUG seq=181 delay_ms=0.11 cache lookup took 3ms
+2026-10-29 11:03:38 10.0.0.1 ERROR seq=182 delay_ms=0.09 db connection failed
+2026-10-29 11:03:38 10.0.0.1 DEBUG seq=183 delay_ms=0.09 cache lookup took 3ms
+2026-10-29 11:03:38 10.0.0.1 INFO seq=184 delay_ms=0.10 request served OK
+2026-10-29 11:03:38 10.0.0.1 INFO seq=185 delay_ms=0.15 request served OK
+2026-10-29 11:03:38 10.0.0.1 INFO seq=186 delay_ms=0.11 request served OK
+2026-10-29 11:03:38 10.0.0.1 INFO seq=187 delay_ms=0.12 request served OK
+2026-10-29 11:03:38 10.0.0.1 DEBUG seq=188 delay_ms=0.28 cache lookup took 3ms
+2026-10-29 11:03:38 10.0.0.1 DEBUG seq=189 delay_ms=0.10 cache lookup took 3ms
+2026-10-29 11:03:38 10.0.0.1 INFO seq=190 delay_ms=0.10 request served OK
+2026-10-29 11:03:38 10.0.0.1 DEBUG seq=191 delay_ms=0.13 cache lookup took 3ms
+2026-10-29 11:03:38 10.0.0.1 INFO seq=192 delay_ms=0.13 request served OK
+2026-10-29 11:03:38 10.0.0.1 INFO seq=193 delay_ms=0.12 request served OK
+2026-10-29 11:03:38 10.0.0.1 INFO seq=194 delay_ms=0.11 request served OK
+2026-10-29 11:03:38 10.0.0.1 INFO seq=195 delay_ms=0.11 request served OK
+2026-10-29 11:03:38 10.0.0.1 WARNING seq=196 delay_ms=0.12 disk usage above 80%
+2026-10-29 11:03:38 10.0.0.1 WARNING seq=197 delay_ms=0.26 disk usage above 80%
+2026-10-29 11:03:38 10.0.0.1 INFO seq=198 delay_ms=0.09 request served OK
+2026-10-29 11:03:38 10.0.0.1 DEBUG seq=199 delay_ms=0.12 cache lookup took 3ms
