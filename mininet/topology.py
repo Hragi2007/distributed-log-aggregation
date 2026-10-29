@@ -1,11 +1,12 @@
+from functools import partial
 from mininet.topo import Topo
 from mininet.net import Mininet
-from mininet.node import OVSSwitch
+from mininet.node import OVSSwitch, RemoteController
 from mininet.cli import CLI
 from mininet.log import setLogLevel
-#this is not the final topology, it is just a good test topology to test if mininet is working. final topology will be built after seeing udp clients and servers and sdn controller files.
-class LogAggregationTopology(Topo):
 
+
+class LogAggregationTopology(Topo):
     def build(self):
         h1 = self.addHost('h1')
         h2 = self.addHost('h2')
@@ -21,31 +22,36 @@ class LogAggregationTopology(Topo):
         self.addLink(h4, s2)
         self.addLink(s1, s2)
 
+
 def run():
     topo = LogAggregationTopology()
 
     net = Mininet(
         topo=topo,
         controller=None,
-        switch=OVSSwitch,
+        switch=partial(OVSSwitch, protocols='OpenFlow13'),
         autoSetMacs=True
+    )
+
+    net.addController(
+        'c0',
+        controller=RemoteController,
+        ip='127.0.0.1',
+        port=6653
     )
 
     try:
         net.start()
 
-        # Put switches into standalone mode for basic connectivity testing.
-        for switch in net.switches:
-            switch.cmd('ovs-vsctl set-fail-mode', switch.name, 'standalone')
-
         print("\nThree log clients: h1, h2, h3")
         print("Central log server: h4")
-        print("Potential bottleneck: s1 <-> s2\n")
+        print("Switches s1 and s2 should connect to Ryu.\n")
 
         CLI(net)
 
     finally:
         net.stop()
+
 
 if __name__ == '__main__':
     setLogLevel('info')
