@@ -1,0 +1,6 @@
+host,severity,sent,received,loss_pct,avg_delay_ms,max_delay_ms
+h1,DEBUG,69,69,0.00,0.36,8.49
+h1,INFO,81,81,0.00,0.24,0.81
+h1,WARNING,30,30,0.00,0.18,0.46
+h1,ERROR,10,10,0.00,0.32,0.93
+h1,CRITICAL,10,10,0.00,0.32,0.52

@@ -1,3 +1,4 @@
+cat > mininet/topology.py << 'EOF'
 from functools import partial
 from mininet.topo import Topo
 from mininet.net import Mininet
@@ -23,6 +24,17 @@ class LogAggregationTopology(Topo):
         self.addLink(s1, s2)
 
 
+def setup_queues(net):
+    queue_cmd = (
+        '-- --id=@newqos create QoS type=linux-htb other-config:max-rate=10000000 '
+        'queues:0=@q0 queues:1=@q1 -- '
+        '--id=@q0 create Queue other-config:min-rate=2000000 other-config:max-rate=2000000 -- '
+        '--id=@q1 create Queue other-config:min-rate=8000000 other-config:max-rate=8000000'
+    )
+    for switch, port in [('s1', 's1-eth4'), ('s2', 's2-eth1')]:
+        net.get(switch).cmd('ovs-vsctl set Port', port, 'qos=@newqos', queue_cmd)
+
+
 def run():
     topo = LogAggregationTopology()
 
@@ -42,9 +54,11 @@ def run():
 
     try:
         net.start()
+        setup_queues(net)
 
         print("\nThree log clients: h1, h2, h3")
         print("Central log server: h4")
+        print("QoS queues on s1-eth4 and s2-eth1: queue 0 = 2 Mbps, queue 1 = 8 Mbps")
         print("Switches s1 and s2 should connect to Ryu.\n")
 
         CLI(net)
@@ -56,3 +70,4 @@ def run():
 if __name__ == '__main__':
     setLogLevel('info')
     run()
+EOF
