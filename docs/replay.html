@@ -43,8 +43,8 @@ input[type=range]{flex:1;min-width:200px}
   <div class="row">
     <button id="s-ctrl" class="on">Congestion, controller on</button>
     <button id="s-base" class="ghost">Congestion, controller off</button>
-    <button class="off" title="No recorded run yet">No congestion, controller on (not recorded)</button>
-    <button class="off" title="No recorded run yet">No congestion, controller off (not recorded)</button>
+    <button id="s-nc" class="ghost">No congestion, controller on</button>
+    <button id="s-nb" class="ghost">No congestion, controller off</button>
   </div>
   <div class="row" style="margin-top:12px">
     <button id="play">Play</button>
@@ -99,7 +99,7 @@ input[type=range]{flex:1;min-width:200px}
 </main>
 
 <script>
-var files = {ctrl: 'replay/controller.json', base: 'replay/baseline.json'};
+var files = {ctrl: 'replay/controller.json', base: 'replay/baseline.json', nctrl: 'replay/nocong_ctrl.json', nbase: 'replay/nocong_base.json'};
 var pos = {h1: [130, 50], h2: [130, 110], h3: [130, 170]};
 var S1 = [300, 110], S2 = [560, 110], H4 = [760, 110];
 var events = [], duration = 1, t = 0, speed = 1, playing = false, last = null, key = null, lastK = -1;
@@ -120,6 +120,8 @@ function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
 function highlightScenario() {
   $('s-ctrl').className = key === 'ctrl' ? 'on' : 'ghost';
   $('s-base').className = key === 'base' ? 'on' : 'ghost';
+  $('s-nc').className = key === 'nctrl' ? 'on' : 'ghost';
+  $('s-nb').className = key === 'nbase' ? 'on' : 'ghost';
 }
 
 function load(k) {
@@ -198,6 +200,8 @@ document.querySelectorAll('.sp').forEach(function (btn) {
 $('seek').addEventListener('input', function () { t = parseFloat(this.value); render(); });
 $('s-ctrl').addEventListener('click', function () { load('ctrl'); });
 $('s-base').addEventListener('click', function () { load('base'); });
+$('s-nc').addEventListener('click', function () { load('nctrl'); });
+$('s-nb').addEventListener('click', function () { load('nbase'); });
 
 load('ctrl');
 requestAnimationFrame(tick);
