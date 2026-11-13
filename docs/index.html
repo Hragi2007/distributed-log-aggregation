@@ -69,26 +69,49 @@
 
 <section>
   <h2>Topology</h2>
-  <svg class="topo" viewBox="0 0 900 180" role="img" aria-label="Topology diagram">
+  <svg class="topo" viewBox="0 0 900 225" role="img" aria-label="Animated topology: packets flow from the three clients through s1 and the bottleneck to the server">
+    <style>
+      .bneck { animation: flash 2.4s infinite; }
+      @keyframes flash { 0%, 100% { stroke: #dc2626; } 50% { stroke: #fca5a5; } }
+    </style>
     <g stroke="#64748b" stroke-width="2">
-      <line x1="130" y1="47" x2="260" y2="90"/>
-      <line x1="130" y1="97" x2="260" y2="90"/>
-      <line x1="130" y1="147" x2="260" y2="90"/>
-      <line x1="350" y1="90" x2="520" y2="90" stroke="#dc2626" stroke-width="5"/>
-      <line x1="610" y1="90" x2="740" y2="90"/>
+      <line x1="130" y1="57" x2="260" y2="100"/>
+      <line x1="130" y1="117" x2="260" y2="100"/>
+      <line x1="130" y1="177" x2="260" y2="100"/>
+      <line x1="350" y1="100" x2="520" y2="100" class="bneck" stroke-width="6"/>
+      <line x1="610" y1="100" x2="740" y2="100"/>
     </g>
     <g font-family="system-ui, sans-serif" font-size="14" text-anchor="middle">
-      <rect x="40" y="30" width="90" height="34" rx="6" fill="#e2e8f0" stroke="#64748b"/><text x="85" y="52">h1 client</text>
-      <rect x="40" y="80" width="90" height="34" rx="6" fill="#e2e8f0" stroke="#64748b"/><text x="85" y="102">h2 client</text>
-      <rect x="40" y="130" width="90" height="34" rx="6" fill="#e2e8f0" stroke="#64748b"/><text x="85" y="152">h3 client</text>
-      <rect x="260" y="65" width="90" height="50" rx="6" fill="#dbeafe" stroke="#2563eb"/><text x="305" y="95">s1</text>
-      <rect x="520" y="65" width="90" height="50" rx="6" fill="#dbeafe" stroke="#2563eb"/><text x="565" y="95">s2</text>
-      <rect x="740" y="65" width="90" height="50" rx="6" fill="#dcfce7" stroke="#16a34a"/><text x="785" y="95">h4 server</text>
-      <text x="435" y="76" fill="#b91c1c" font-size="13">bottleneck: 10 Mbps</text>
-      <text x="435" y="112" fill="#334e68" font-size="12">queue 0: 2 Mbps · queue 1: 8 Mbps</text>
+      <rect x="40" y="40" width="90" height="34" rx="6" fill="#e2e8f0" stroke="#64748b"/><text x="85" y="62">h1 client</text>
+      <rect x="40" y="100" width="90" height="34" rx="6" fill="#e2e8f0" stroke="#64748b"/><text x="85" y="122">h2 client</text>
+      <rect x="40" y="160" width="90" height="34" rx="6" fill="#e2e8f0" stroke="#64748b"/><text x="85" y="182">h3 client</text>
+      <rect x="260" y="75" width="90" height="50" rx="6" fill="#dbeafe" stroke="#2563eb"/><text x="305" y="105">s1</text>
+      <rect x="520" y="75" width="90" height="50" rx="6" fill="#dbeafe" stroke="#2563eb"/><text x="565" y="105">s2</text>
+      <rect x="740" y="75" width="90" height="50" rx="6" fill="#dcfce7" stroke="#16a34a"/><text x="785" y="105">h4 server</text>
+      <text x="435" y="88" fill="#b91c1c" font-size="13">bottleneck: 10 Mbps</text>
+      <text x="435" y="128" fill="#334e68" font-size="12">queue 1 critical 8 Mbps · queue 0 default 2 Mbps</text>
+    </g>
+    <g>
+      <circle r="6" fill="#16a34a"><animateMotion dur="3s" repeatCount="indefinite" begin="0s" path="M130,57 L260,100 L740,100"/></circle>
+      <circle r="6" fill="#f59e0b"><animateMotion dur="3s" repeatCount="indefinite" begin="0.75s" path="M130,57 L260,100 L740,100"/></circle>
+      <circle r="6" fill="#94a3b8"><animateMotion dur="3s" repeatCount="indefinite" begin="1.5s" path="M130,57 L260,100 L740,100"/></circle>
+      <circle r="6" fill="#94a3b8"><animateMotion dur="3s" repeatCount="indefinite" begin="2.25s" path="M130,57 L260,100 L740,100"/></circle>
+      <circle r="6" fill="#16a34a"><animateMotion dur="3s" repeatCount="indefinite" begin="0.4s" path="M130,117 L260,100 L740,100"/></circle>
+      <circle r="6" fill="#f59e0b"><animateMotion dur="3s" repeatCount="indefinite" begin="1.15s" path="M130,117 L260,100 L740,100"/></circle>
+      <circle r="6" fill="#94a3b8"><animateMotion dur="3s" repeatCount="indefinite" begin="1.9s" path="M130,117 L260,100 L740,100"/></circle>
+      <circle r="6" fill="#94a3b8"><animateMotion dur="3s" repeatCount="indefinite" begin="2.65s" path="M130,117 L260,100 L740,100"/></circle>
+      <circle r="6" fill="#16a34a"><animateMotion dur="3s" repeatCount="indefinite" begin="0.2s" path="M130,177 L260,100 L740,100"/></circle>
+      <circle r="6" fill="#f59e0b"><animateMotion dur="3s" repeatCount="indefinite" begin="0.95s" path="M130,177 L260,100 L740,100"/></circle>
+      <circle r="6" fill="#94a3b8"><animateMotion dur="3s" repeatCount="indefinite" begin="1.7s" path="M130,177 L260,100 L740,100"/></circle>
+      <circle r="6" fill="#94a3b8"><animateMotion dur="3s" repeatCount="indefinite" begin="2.45s" path="M130,177 L260,100 L740,100"/></circle>
+    </g>
+    <g font-family="system-ui, sans-serif" font-size="13" fill="#334e68">
+      <circle cx="200" cy="212" r="6" fill="#16a34a"/><text x="212" y="216">critical</text>
+      <circle cx="290" cy="212" r="6" fill="#f59e0b"/><text x="302" y="216">error</text>
+      <circle cx="360" cy="212" r="6" fill="#94a3b8"/><text x="372" y="216">default</text>
     </g>
   </svg>
-  <p class="note">Three clients send to one server. All traffic crosses the s1-s2 link, so that link is where congestion happens and where the queues are applied.</p>
+  <p class="note">Packets from the three clients (dots) flow through s1 and across the bottleneck to h4. Critical packets (green) go to queue 1 when the controller is running. The bottleneck flashes because it is the congested link.</p>
 </section>
 
 <section>
