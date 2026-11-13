@@ -9,7 +9,7 @@ A Mininet and SDN project for PES University. Several hosts send application log
 | Name | SRN | Contribution |
 |---|---|---|
 | Goutami Velaga | PES1UG25CS191 | SDN controller (`sdn-controller/my_controller.py`) and DSCP-based classification. Designed the QoS queue setup on the bottleneck ports (queue 0 at 2 Mbps, queue 1 at 8 Mbps). Ran the congestion tests and the critical versus default latency measurements with iperf and ping. |
-| Jahnavi S | PES1UG25CS217 | UDP log client and server (`udp-app/log_client.py`, `udp-app/log_server.py`): message format, timestamps, sequence numbers, and per-severity reporting. |
+| Jahnavi S | PES1UG25CS217 | UDP log client and server (`udp-app/log_client.py`, `udp-app/log_server.py`): message format with timestamps, sequence numbers and severity; marks critical logs with DSCP so the controller can classify them; per-severity reporting of packet loss and delivery time. |
 | Harshith Ragi | PES1UG25CS203 | Mininet topology (`mininet/topology.py`, `mininet/topology_standalone.py`). Integrated Goutami's QoS queue setup into the topology so it runs automatically. Reproduced her congestion and latency tests on a separate VM. Ran the UDP log measurements under congestion and the baseline without the controller. Assembled the results and evidence, and made a small fix to the controller's rule for non-IP traffic. |
 
 The congestion setup and its first measurements were designed and run by Goutami. Harshith's runs reproduce those results and add the UDP log measurements, which her tests did not cover.
