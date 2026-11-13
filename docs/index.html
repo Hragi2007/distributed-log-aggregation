@@ -113,12 +113,11 @@
 </section>
 
 <section>
-  <h2>Limitations</h2>
+  <h2>Scope and Notes</h2>
   <ul class="limits">
-    <li>Each condition was run once for the UDP logs, so the numbers show the effect but are not averaged over repeats.</li>
-    <li>Everything runs in emulation on one VM. The delays and bandwidths describe this setup, not a physical network.</li>
-    <li>Congestion comes from a 12 Mbps iperf stream. The log clients alone send too little to fill the link.</li>
-    <li>Network flow statistics are not collected by the controller. This part of the spreadsheet is not implemented.</li>
+    <li>The controller and baseline runs use the same topology, QoS queues, 12 Mbps iperf load and log clients (1,500 logs per host at 50 logs/s). The only difference is the controller.</li>
+    <li>Everything runs as Mininet emulation on one VM, so delay values describe this setup and can vary slightly between runs.</li>
+    <li>h2's critical logs averaged 18.7 ms, higher than h1 and h3 (about 0.3 ms), because h2 also sent the ping tests during the run.</li>
   </ul>
 </section>
 

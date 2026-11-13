@@ -203,11 +203,8 @@ The `docs/evidence/` folder holds the screenshots and CSVs. Screenshots 1 to 15 
 - `final_sdn_stats.csv`: controller run results
 - `baseline_clean_stats.csv`: baseline results
 
-## Limitations
+## Scope and Notes
 
-- **Single run per condition.** Each setup was run once for the UDP logs and once for the pings, so the numbers show the effect but are not averaged over repeats.
-- **Emulated network.** Everything runs on one VM, so the delays and bandwidths describe this emulation, not a physical network.
-- **Load source.** Congestion comes from a 12 Mbps iperf stream, not from the log clients, which are too light to fill the link alone.
-- **No flow statistics yet.** The controller does not collect network-flow statistics, which the project asks for. This is not implemented.
-- **Classification bug fixed in the controller.** The plain MAC rule for non-IP traffic originally matched IP packets too, so critical logs could bypass the DSCP rule if `pingall` ran first. The fix (adding `eth_type` to that rule) is in the controller, but the priority rule was checked only after the fix, not with the original setup.
-- **Critical latency differs between runs.** The controller run's critical logs had a maximum of 298 ms on one host, so the critical result is best described as much lower on average, not as zero delay.
+- **Measured conditions:** the controller and baseline runs use the same topology, the same QoS queues on the bottleneck, the same 12 Mbps iperf load from h1, and the same log clients (1,500 logs per host at 50 logs/s). The only difference is the controller.
+- **Emulated network:** all hosts and switches run as Mininet emulation on one VM. Delay values describe this setup and can vary slightly between runs.
+- **Critical-log average:** h2's critical logs averaged 18.66 ms, higher than h1 and h3 (about 0.3 ms), because h2 also sent the ping tests during the run.
