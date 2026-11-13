@@ -1,4 +1,3 @@
-cat > mininet/topology.py << 'EOF'
 from functools import partial
 from mininet.topo import Topo
 from mininet.net import Mininet
@@ -70,4 +69,3 @@ def run():
 if __name__ == '__main__':
     setLogLevel('info')
     run()
-EOF

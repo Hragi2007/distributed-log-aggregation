@@ -1,0 +1,20 @@
+[server] listening on 0.0.0.0:5140
+
+=== REPORT ===
+host    sev          sent   recv   loss%   avg_ms   max_ms
+h1      DEBUG         622    622    0.00   455.05   635.14
+h1      INFO          492    492    0.00   461.30   611.42
+h1      WARNING       235    235    0.00   454.49   595.20
+h1      ERROR         108    108    0.00   443.24   597.50
+h1      CRITICAL       43     43    0.00   455.18   589.86
+h2      DEBUG         581    581    0.00   455.34   848.07
+h2      INFO          544    544    0.00   457.01   808.29
+h2      WARNING       233    233    0.00   464.37   624.15
+h2      ERROR         100    100    0.00   454.05   665.38
+h2      CRITICAL       42     42    0.00   463.00   574.90
+h3      DEBUG         573    573    0.00   458.12   825.22
+h3      INFO          526    526    0.00   457.10   785.01
+h3      WARNING       227    227    0.00   460.75   847.41
+h3      ERROR         129    129    0.00   467.43   746.09
+h3      CRITICAL       45     45    0.00   458.19   607.88
+[server] saved results/baseline_clean/aggregated.log and results/baseline_clean/stats.csv

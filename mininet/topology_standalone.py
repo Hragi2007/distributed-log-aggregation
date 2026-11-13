@@ -1,11 +1,12 @@
+from functools import partial
 from mininet.topo import Topo
 from mininet.net import Mininet
 from mininet.node import OVSSwitch
 from mininet.cli import CLI
 from mininet.log import setLogLevel
-#this is not the final topology, it is just a good test topology to test if mininet is working. final topology will be built after seeing udp clients and servers and sdn controller files.
-class LogAggregationTopology(Topo):
 
+
+class LogAggregationTopology(Topo):
     def build(self):
         h1 = self.addHost('h1')
         h2 = self.addHost('h2')
@@ -21,31 +22,42 @@ class LogAggregationTopology(Topo):
         self.addLink(h4, s2)
         self.addLink(s1, s2)
 
+
+def setup_queues(net):
+    queue_cmd = (
+        '-- --id=@newqos create QoS type=linux-htb other-config:max-rate=10000000 '
+        'queues:0=@q0 queues:1=@q1 -- '
+        '--id=@q0 create Queue other-config:min-rate=2000000 other-config:max-rate=2000000 -- '
+        '--id=@q1 create Queue other-config:min-rate=8000000 other-config:max-rate=8000000'
+    )
+    for switch, port in [('s1', 's1-eth4'), ('s2', 's2-eth1')]:
+        net.get(switch).cmd('ovs-vsctl set Port', port, 'qos=@newqos', queue_cmd)
+
+
 def run():
     topo = LogAggregationTopology()
 
     net = Mininet(
         topo=topo,
         controller=None,
-        switch=OVSSwitch,
+        switch=partial(OVSSwitch, protocols='OpenFlow13'),
         autoSetMacs=True
     )
 
     try:
         net.start()
 
-        # Put switches into standalone mode for basic connectivity testing.
         for switch in net.switches:
             switch.cmd('ovs-vsctl set-fail-mode', switch.name, 'standalone')
 
-        print("\nThree log clients: h1, h2, h3")
-        print("Central log server: h4")
-        print("Potential bottleneck: s1 <-> s2\n")
+        setup_queues(net)
 
+        print("\nBASELINE: no controller, same QoS queues on s1-eth4 and s2-eth1")
         CLI(net)
 
     finally:
         net.stop()
+
 
 if __name__ == '__main__':
     setLogLevel('info')

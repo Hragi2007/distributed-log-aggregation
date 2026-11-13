@@ -1,0 +1,20 @@
+[server] listening on 0.0.0.0:5140
+
+=== REPORT ===
+host    sev          sent   recv   loss%   avg_ms   max_ms
+h1      DEBUG         613    613    0.00   460.78   599.99
+h1      INFO          531    531    0.00   452.14   617.54
+h1      WARNING       212    212    0.00   447.86   596.32
+h1      ERROR         101    101    0.00   448.92   591.85
+h1      CRITICAL       43     43    0.00     0.25     2.55
+h2      DEBUG         615    615    0.00   464.77  1110.77
+h2      INFO          503    503    0.00   457.96  1050.24
+h2      WARNING       238    238    0.00   467.42  1090.34
+h2      ERROR         109    109    0.00   456.16   595.94
+h2      CRITICAL       35     35    0.00    18.66   298.34
+h3      DEBUG         567    567    0.00   467.07   936.08
+h3      INFO          533    533    0.00   454.00   835.97
+h3      WARNING       231    231    0.00   461.81   916.15
+h3      ERROR         110    110    0.00   454.11   606.88
+h3      CRITICAL       59     59    0.00     0.27     1.55
+[server] saved results/final_sdn/aggregated.log and results/final_sdn/stats.csv
