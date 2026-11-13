@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Project 10: Distributed Log Aggregation</title>
+<style>
+  body { font-family: system-ui, -apple-system, Segoe UI, sans-serif; margin: 0; background: #f4f6f9; color: #1f2933; line-height: 1.5; }
+  header { background: #13294b; color: #fff; padding: 36px 24px; }
+  header h1 { margin: 0 0 6px; font-size: 28px; }
+  header .meta { color: #cbd5e1; margin: 0 0 16px; }
+  header .headline { font-size: 17px; margin: 0; max-width: 820px; }
+  main { max-width: 1100px; margin: 0 auto; padding: 24px; }
+  section { background: #fff; border-radius: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); padding: 24px; margin-bottom: 24px; }
+  h2 { margin: 0 0 12px; font-size: 20px; color: #13294b; }
+  p.note { color: #52606d; font-size: 14px; margin: 12px 0 0; }
+  .topo { width: 100%; height: auto; }
+  .chart { display: flex; align-items: flex-end; gap: 28px; height: 300px; padding: 10px 10px 0; border-bottom: 1px solid #cbd2d9; }
+  .group { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; }
+  .bars { display: flex; align-items: flex-end; gap: 6px; height: 260px; }
+  .bar { width: 46px; border-radius: 4px 4px 0 0; position: relative; }
+  .bar span { position: absolute; top: -20px; left: 0; right: 0; text-align: center; font-size: 12px; color: #334e68; }
+  .bar.ctrl { background: #2563eb; }
+  .bar.base { background: #9aa5b1; }
+  .label { font-size: 13px; color: #334e68; margin-top: 8px; }
+  .legend { font-size: 14px; margin-top: 12px; }
+  .legend i { display: inline-block; width: 12px; height: 12px; margin: 0 6px 0 14px; border-radius: 2px; }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; }
+  th, td { text-align: left; padding: 7px 10px; border-bottom: 1px solid #e4e7eb; }
+  th { background: #f0f4f8; color: #334e68; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tr.crit td { background: #eaf2ff; font-weight: 600; }
+  .pings { display: flex; gap: 16px; flex-wrap: wrap; }
+  .card { flex: 1; min-width: 180px; background: #f0f4f8; border-radius: 8px; padding: 14px; }
+  .card .big { font-size: 26px; font-weight: 700; color: #13294b; }
+  .card .what { font-size: 14px; color: #52606d; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px; }
+  .shot { background: #f8fafc; border: 1px solid #e4e7eb; border-radius: 8px; padding: 8px; font-size: 13px; color: #334e68; }
+  .shot img { width: 100%; height: 150px; object-fit: contain; background: #fff; border-radius: 4px; }
+  .shot a { color: #2563eb; text-decoration: none; }
+  ul.limits { margin: 0; padding-left: 20px; font-size: 14px; color: #334e68; }
+  ul.limits li { margin-bottom: 6px; }
+  footer { text-align: center; color: #7b8794; font-size: 13px; padding: 12px 0 32px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Distributed Log Aggregation with SDN Prioritisation</h1>
+  <p class="meta">Project 10 · PES University · Goutami Velaga, Jahnavi S, Harshith Ragi</p>
+  <p class="headline">Under a 12 Mbps congestion load, critical logs averaged about 6 ms with the controller, against about 459 ms without it. Every other severity took about 455 ms in both runs. No logs were lost in either run.</p>
+</header>
+
+<main>
+
+<section>
+  <h2>Topology</h2>
+  <svg class="topo" viewBox="0 0 900 180" role="img" aria-label="Topology diagram">
+    <g stroke="#64748b" stroke-width="2">
+      <line x1="130" y1="47" x2="260" y2="90"/>
+      <line x1="130" y1="97" x2="260" y2="90"/>
+      <line x1="130" y1="147" x2="260" y2="90"/>
+      <line x1="350" y1="90" x2="520" y2="90" stroke="#dc2626" stroke-width="5"/>
+      <line x1="610" y1="90" x2="740" y2="90"/>
+    </g>
+    <g font-family="system-ui, sans-serif" font-size="14" text-anchor="middle">
+      <rect x="40" y="30" width="90" height="34" rx="6" fill="#e2e8f0" stroke="#64748b"/><text x="85" y="52">h1 client</text>
+      <rect x="40" y="80" width="90" height="34" rx="6" fill="#e2e8f0" stroke="#64748b"/><text x="85" y="102">h2 client</text>
+      <rect x="40" y="130" width="90" height="34" rx="6" fill="#e2e8f0" stroke="#64748b"/><text x="85" y="152">h3 client</text>
+      <rect x="260" y="65" width="90" height="50" rx="6" fill="#dbeafe" stroke="#2563eb"/><text x="305" y="95">s1</text>
+      <rect x="520" y="65" width="90" height="50" rx="6" fill="#dbeafe" stroke="#2563eb"/><text x="565" y="95">s2</text>
+      <rect x="740" y="65" width="90" height="50" rx="6" fill="#dcfce7" stroke="#16a34a"/><text x="785" y="95">h4 server</text>
+      <text x="435" y="76" fill="#b91c1c" font-size="13">bottleneck: 10 Mbps</text>
+      <text x="435" y="112" fill="#334e68" font-size="12">queue 0: 2 Mbps · queue 1: 8 Mbps</text>
+    </g>
+  </svg>
+  <p class="note">Three clients send to one server. All traffic crosses the s1-s2 link, so that link is where congestion happens and where the queues are applied.</p>
+</section>
+
+<section>
+  <h2>UDP log delay by severity</h2>
+  <p class="note">Each bar is the mean of the three per-host average delays. Loss was 0% for every severity in both runs.</p>
+  <div class="chart" id="chart"></div>
+  <div class="legend"><i style="background:#2563eb"></i>Controller run <i style="background:#9aa5b1"></i>Baseline (no controller)</div>
+</section>
+
+<section>
+  <h2>Per-host results</h2>
+  <table>
+    <thead>
+      <tr><th>Run</th><th>Host</th><th>Severity</th><th class="num">Sent</th><th class="num">Received</th><th class="num">Loss %</th><th class="num">Avg delay (ms)</th><th class="num">Max delay (ms)</th></tr>
+    </thead>
+    <tbody id="rows"></tbody>
+  </table>
+</section>
+
+<section>
+  <h2>Latency under congestion (pings from h2, controller run)</h2>
+  <div class="pings">
+    <div class="card"><div class="big">9.8 ms</div><div class="what">Critical (DSCP 46)</div></div>
+    <div class="card"><div class="big">426 ms</div><div class="what">Error (DSCP 26)</div></div>
+    <div class="card"><div class="big">423 ms</div><div class="what">Default traffic</div></div>
+    <div class="card"><div class="big">0.05 ms</div><div class="what">No load, for comparison</div></div>
+  </div>
+  <p class="note">Each figure is the average of 30 pings with 0% loss. Pings were sent while the 12 Mbps load ran.</p>
+</section>
+
+<section>
+  <h2>Evidence</h2>
+  <p class="note">Screenshots 1 to 15 are from Goutami's run. Screenshots 16 to 19 are from Harshith's reproduction. Click any image to open it at full size.</p>
+  <div class="grid" id="shots"></div>
+  <p class="note">Raw data: <a href="evidence/final_sdn_stats.csv">controller run CSV</a> · <a href="evidence/baseline_clean_stats.csv">baseline CSV</a></p>
+</section>
+
+<section>
+  <h2>Limitations</h2>
+  <ul class="limits">
+    <li>Each condition was run once for the UDP logs, so the numbers show the effect but are not averaged over repeats.</li>
+    <li>Everything runs in emulation on one VM. The delays and bandwidths describe this setup, not a physical network.</li>
+    <li>Congestion comes from a 12 Mbps iperf stream. The log clients alone send too little to fill the link.</li>
+    <li>Network flow statistics are not collected by the controller. This part of the spreadsheet is not implemented.</li>
+  </ul>
+</section>
+
+</main>
+
+<footer>Built from the runs in this repository. Numbers last updated from results/final_sdn and results/baseline_clean.</footer>
+
+<script>
+var rows = [
+  ['controller','h1','DEBUG',613,613,0.00,460.78,599.99],
+  ['controller','h1','INFO',531,531,0.00,452.14,617.54],
+  ['controller','h1','WARNING',212,212,0.00,447.86,596.32],
+  ['controller','h1','ERROR',101,101,0.00,448.92,591.85],
+  ['controller','h1','CRITICAL',43,43,0.00,0.25,2.55],
+  ['controller','h2','DEBUG',615,615,0.00,464.77,1110.77],
+  ['controller','h2','INFO',503,503,0.00,457.96,1050.24],
+  ['controller','h2','WARNING',238,238,0.00,467.42,1090.34],
+  ['controller','h2','ERROR',109,109,0.00,456.16,595.94],
+  ['controller','h2','CRITICAL',35,35,0.00,18.66,298.34],
+  ['controller','h3','DEBUG',567,567,0.00,467.07,936.08],
+  ['controller','h3','INFO',533,533,0.00,454.00,835.97],
+  ['controller','h3','WARNING',231,231,0.00,461.81,916.15],
+  ['controller','h3','ERROR',110,110,0.00,454.11,606.88],
+  ['controller','h3','CRITICAL',59,59,0.00,0.27,1.55],
+  ['baseline','h1','DEBUG',622,622,0.00,455.05,635.14],
+  ['baseline','h1','INFO',492,492,0.00,461.30,611.42],
+  ['baseline','h1','WARNING',235,235,0.00,454.49,595.20],
+  ['baseline','h1','ERROR',108,108,0.00,443.24,597.50],
+  ['baseline','h1','CRITICAL',43,43,0.00,455.18,589.86],
+  ['baseline','h2','DEBUG',581,581,0.00,455.34,848.07],
+  ['baseline','h2','INFO',544,544,0.00,457.01,808.29],
+  ['baseline','h2','WARNING',233,233,0.00,464.37,624.15],
+  ['baseline','h2','ERROR',100,100,0.00,454.05,665.38],
+  ['baseline','h2','CRITICAL',42,42,0.00,463.00,574.90],
+  ['baseline','h3','DEBUG',573,573,0.00,458.12,825.22],
+  ['baseline','h3','INFO',526,526,0.00,457.10,785.01],
+  ['baseline','h3','WARNING',227,227,0.00,460.75,847.41],
+  ['baseline','h3','ERROR',129,129,0.00,467.47,746.09],
+  ['baseline','h3','CRITICAL',45,45,0.00,458.19,607.88]
+];
+
+var sevs = ['CRITICAL','ERROR','WARNING','INFO','DEBUG'];
+
+function meanDelay(run, sev) {
+  var r = rows.filter(function(x){ return x[0] === run && x[2] === sev; });
+  var total = r.reduce(function(a, x){ return a + x[6]; }, 0);
+  return total / r.length;
+}
+
+var chart = document.getElementById('chart');
+var maxVal = 500;
+sevs.forEach(function(sev){
+  var c = meanDelay('controller', sev);
+  var b = meanDelay('baseline', sev);
+  var group = document.createElement('div');
+  group.className = 'group';
+  group.innerHTML =
+    '<div class="bars">' +
+      '<div class="bar ctrl" style="height:' + (c / maxVal * 260) + 'px"><span>' + c.toFixed(1) + '</span></div>' +
+      '<div class="bar base" style="height:' + (b / maxVal * 260) + 'px"><span>' + b.toFixed(1) + '</span></div>' +
+    '</div>' +
+    '<div class="label">' + sev + '</div>';
+  chart.appendChild(group);
+});
+
+var tbody = document.getElementById('rows');
+rows.forEach(function(x){
+  var tr = document.createElement('tr');
+  if (x[2] === 'CRITICAL') tr.className = 'crit';
+  tr.innerHTML =
+    '<td>' + (x[0] === 'controller' ? 'Controller' : 'Baseline') + '</td>' +
+    '<td>' + x[1] + '</td>' +
+    '<td>' + x[2] + '</td>' +
+    '<td class="num">' + x[3] + '</td>' +
+    '<td class="num">' + x[4] + '</td>' +
+    '<td class="num">' + x[5].toFixed(2) + '</td>' +
+    '<td class="num">' + x[6].toFixed(2) + '</td>' +
+    '<td class="num">' + x[7].toFixed(2) + '</td>';
+  tbody.appendChild(tr);
+});
+
+var shots = [
+  ['1)controller is reading the dscp values and assigning the appropriatr queues and priority.png', 'Controller reads DSCP and assigns queues and priority'],
+  ['2)when dedault traffic is sent the bandwidth is limited to queue 0\'s 2mbps.png', 'Default traffic limited to queue 0 at 2 Mbps'],
+  ['3)no of packets increased in q0 when default traffic is sent.png', 'Queue 0 packets rise with default traffic'],
+  ['4)critical traffic is also sent along with the default traffic.png', 'Critical traffic sent alongside default traffic'],
+  ['5)when the critical traffic was sent the no of packets in q1 increased.png', 'Queue 1 packets rise with critical traffic'],
+  ['6)critical logs sent 2nd time.png', 'Critical logs sent a second time'],
+  ['7)packets in q1 increased from 6 to 14 when critical logs are sent 2nd time.png', 'Queue 1 rises from 6 to 14 packets'],
+  ['8)traffic sent for 90s to measure the latency.png', '90-second run to measure latency'],
+  ['9)latency for critical tarffic is very low.png', 'Critical latency is very low under congestion'],
+  ['10)latency for error traffic is high.png', 'Error latency is high under congestion'],
+  ['11)critical traffic without congestion.png', 'Critical traffic without congestion'],
+  ['12)error traffic without congestion(not much latency).png', 'Error traffic without congestion'],
+  ['13)latency test with congestion done 2nd time(almost same results for critical).png', 'Second congestion test, critical'],
+  ['14)latency test with congestion done 2nd time(almost same results for error).png', 'Second congestion test, error'],
+  ['15)flow rules installed in s1 and s2.png', 'Flow rules installed on s1 and s2'],
+  ['16)udp_run_final_udp_report.png', 'UDP log report, controller run (our run)'],
+  ['17)udp_run_topology_and_udp_start.png', 'Topology and UDP run start (our run)'],
+  ['18)udp_run_ryu_classification.png', 'Ryu classifying critical traffic (our run)'],
+  ['19)udp_run_baseline_report.png', 'UDP log report, baseline (our run)']
+];
+
+var grid = document.getElementById('shots');
+shots.forEach(function(s){
+  var div = document.createElement('div');
+  div.className = 'shot';
+  var src = 'evidence/' + encodeURIComponent(s[0]);
+  div.innerHTML =
+    '<a href="' + src + '" target="_blank"><img src="' + src + '" alt="' + s[1] + '"></a>' +
+    '<div>' + s[1] + '</div>';
+  grid.appendChild(div);
+});
+</script>
+</body>
+</html>
