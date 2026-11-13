@@ -1,0 +1,20 @@
+[server] listening on 0.0.0.0:5140
+
+=== REPORT ===
+host    sev          sent   recv   loss%   avg_ms   max_ms
+h1      DEBUG         601    601    0.00     0.19     1.61
+h1      INFO          520    520    0.00     0.21     4.11
+h1      WARNING       232    232    0.00     0.17     0.93
+h1      ERROR          96     96    0.00     0.17     0.93
+h1      CRITICAL       51     51    0.00     0.18     0.79
+h2      DEBUG         582    582    0.00     0.15     1.71
+h2      INFO          549    549    0.00     0.16     1.84
+h2      WARNING       217    217    0.00     0.15     1.43
+h2      ERROR         110    110    0.00     0.13     1.39
+h2      CRITICAL       42     42    0.00     0.12     0.64
+h3      DEBUG         626    626    0.00     0.21    22.79
+h3      INFO          502    502    0.00     0.18     1.46
+h3      WARNING       251    251    0.00     0.17     0.75
+h3      ERROR          79     79    0.00     0.17     0.66
+h3      CRITICAL       42     42    0.00     0.16     0.83
+[server] saved results/nocong_base/aggregated.log and results/nocong_base/stats.csv
