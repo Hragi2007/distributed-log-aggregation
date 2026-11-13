@@ -1,5 +1,7 @@
 # Project 10: Distributed Log Aggregation System
 
+**Live results page:** https://hragi2007.github.io/distributed-log-aggregation/
+
 A Mininet and SDN project for PES University. Several hosts send application logs over UDP to one central server. The network has a bottleneck link, and an SDN controller (Ryu) classifies critical logs by their DSCP tag so the switch can give them a priority queue when the link is congested. The project measures whether that priority reduces the delay of critical logs under congestion, and what it costs the other logs.
 
 ## Team and Contributions
