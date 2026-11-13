@@ -132,7 +132,7 @@ class MyController(app_manager.RyuApp):
                 )
             else:
                 match = parser.OFPMatch(
-                    in_port=in_port,
+                    in_port=in_port, eth_type=eth.ethertype,
                     eth_dst=dst,
                 )
 
