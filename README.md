@@ -2,7 +2,7 @@
 
 **Live results page:** https://hragi2007.github.io/distributed-log-aggregation/
 
-A Mininet and SDN project for PES University. Several hosts send application logs over UDP to one central server. The network has a bottleneck link, and an SDN controller (Ryu) classifies critical logs by their DSCP tag so the switch can give them a priority queue when the link is congested. The project measures whether that priority reduces the delay of critical logs under congestion, and what it costs the other logs.
+Mininet topology (mininet/topology.py, mininet/topology_standalone.py). Integrated Goutami’s QoS queue setup into the topology so it runs automatically. Reproduced her congestion and latency tests on a separate VM. Ran the UDP log measurements under congestion and the baseline without the controller. Assembled the results and evidence, made a small fix to the controller’s rule for non-IP traffic, cleaned the repo, wrote the README, and built the results page (docs/index.html).A Mininet and SDN project for PES University. Several hosts send application logs over UDP to one central server. The network has a bottleneck link, and an SDN controller (Ryu) classifies critical logs by their DSCP tag so the switch can give them a priority queue when the link is congested. The project measures whether that priority reduces the delay of critical logs under congestion, and what it costs the other logs.
 
 ## Team and Contributions
 
