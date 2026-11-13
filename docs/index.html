@@ -35,11 +35,25 @@
   .card .big { font-size: 26px; font-weight: 700; color: #13294b; }
   .card .what { font-size: 14px; color: #52606d; }
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px; }
-  .shot { background: #f8fafc; border: 1px solid #e4e7eb; border-radius: 8px; padding: 8px; font-size: 13px; color: #334e68; }
+  .shot { background: #f8fafc; border: 1px solid #e4e7eb; border-radius: 8px; padding: 8px; font-size: 13px; color: #334e68; cursor: pointer; }
   .shot img { width: 100%; height: 150px; object-fit: contain; background: #fff; border-radius: 4px; }
-  .shot a { color: #2563eb; text-decoration: none; }
   ul.limits { margin: 0; padding-left: 20px; font-size: 14px; color: #334e68; }
   ul.limits li { margin-bottom: 6px; }
+  .cmdblock { margin: 0 0 18px; }
+  .cmdblock h3 { font-size: 16px; margin: 0 0 4px; color: #13294b; }
+  .cmdblock .purpose { font-size: 14px; color: #52606d; margin: 0 0 8px; }
+  .cmd { display: flex; align-items: center; gap: 10px; background: #0f172a; color: #e2e8f0; border-radius: 6px; padding: 8px 10px; margin-bottom: 6px; font-family: ui-monospace, Consolas, monospace; font-size: 13px; }
+  .cmd code { flex: 1; overflow-x: auto; white-space: pre; }
+  .cmd button { background: #2563eb; color: #fff; border: 0; border-radius: 4px; padding: 5px 10px; cursor: pointer; font-size: 12px; }
+  .cmd button.done { background: #16a34a; }
+  .viewer { position: fixed; inset: 0; background: rgba(15,23,42,0.92); display: none; flex-direction: column; align-items: center; justify-content: center; z-index: 10; padding: 20px; }
+  .viewer.open { display: flex; }
+  .viewer img { max-width: 95vw; max-height: 78vh; background: #fff; border-radius: 6px; }
+  .viewer .cap { color: #e2e8f0; font-size: 15px; margin: 12px 0; text-align: center; }
+  .viewer .nav { display: flex; gap: 12px; }
+  .viewer button { background: #2563eb; color: #fff; border: 0; border-radius: 6px; padding: 8px 16px; cursor: pointer; font-size: 15px; }
+  .viewer button.close { background: #475569; }
+  .viewer .count { color: #94a3b8; font-size: 13px; margin-top: 8px; }
   footer { text-align: center; color: #7b8794; font-size: 13px; padding: 12px 0 32px; }
 </style>
 </head>
@@ -78,7 +92,79 @@
 </section>
 
 <section>
-  <h2>UDP log delay by severity</h2>
+  <h2>Run it yourself</h2>
+  <p class="note">Each command has a copy button. Run them in the order shown, in the terminals described. The first command in each group should be done once per session.</p>
+
+  <div class="cmdblock">
+    <h3>1. Setup (once)</h3>
+    <p class="purpose">Get the latest code and clear any old Mininet state. Only do this before starting Ryu.</p>
+    <div class="cmd"><code>cd ~/distributed-log-aggregation && git pull</code><button>Copy</button></div>
+    <div class="cmd"><code>sudo mn -c</code><button>Copy</button></div>
+  </div>
+
+  <div class="cmdblock">
+    <h3>2. Start the controller (Terminal 1)</h3>
+    <p class="purpose">Start Ryu, which decides how the switches prioritise critical logs. Leave this terminal running. Never run <code>sudo mn -c</code> while it runs, because it stops Ryu.</p>
+    <div class="cmd"><code>cd ~/distributed-log-aggregation && source ~/ryu-venv/bin/activate && ryu-manager sdn-controller/my_controller.py</code><button>Copy</button></div>
+  </div>
+
+  <div class="cmdblock">
+    <h3>3. Start the network with the controller (Terminal 2)</h3>
+    <p class="purpose">Build the 4-host, 2-switch topology with the QoS queues on the bottleneck. Ryu should print "Switch connected" twice.</p>
+    <div class="cmd"><code>sudo python3 mininet/topology.py</code><button>Copy</button></div>
+    <div class="cmd"><code>sh ovs-vsctl list qos</code><button>Copy</button></div>
+    <p class="purpose">The second command confirms the queues exist.</p>
+  </div>
+
+  <div class="cmdblock">
+    <h3>4. Start the servers on h4 (inside the Mininet prompt)</h3>
+    <p class="purpose">Start the iperf server, which receives the background load, and the log server, which collects the logs and writes the report.</p>
+    <div class="cmd"><code>h4 iperf -s -u -p 5001 &amp;</code><button>Copy</button></div>
+    <div class="cmd"><code>h4 python3 udp-app/log_server.py --idle-exit 10 --out results/final_sdn &gt; results/server_final_sdn.txt 2&gt;&amp;1 &amp;</code><button>Copy</button></div>
+  </div>
+
+  <div class="cmdblock">
+    <h3>5. Create congestion and send the logs (inside the Mininet prompt)</h3>
+    <p class="purpose">Start a 12 Mbps UDP load from h1 to fill the 10 Mbps link, then send the logs from all three clients at once. Run the clients in one line so they start together.</p>
+    <div class="cmd"><code>h1 iperf -c 10.0.0.4 -u -p 5001 -b 12M -t 60 &amp;</code><button>Copy</button></div>
+    <div class="cmd"><code>py [h.cmd('python3 udp-app/log_client.py --server 10.0.0.4 --name=%s --count 1500 --rate 50 &gt; /dev/null 2&gt;&amp;1 &amp;' % h.name) for h in (h1, h2, h3)]</code><button>Copy</button></div>
+    <p class="purpose">Wait about 40 seconds, then show the report.</p>
+    <div class="cmd"><code>h4 cat results/server_final_sdn.txt</code><button>Copy</button></div>
+  </div>
+
+  <div class="cmdblock">
+    <h3>6. Measure latency under the same load (inside the Mininet prompt)</h3>
+    <p class="purpose">Send pings from h2 with each traffic type while the load runs. Start the load in step 5 first, and run these within the 60 seconds.</p>
+    <div class="cmd"><code>h2 ping -Q 0xb8 -c 30 -i 0.2 10.0.0.4</code><button>Copy</button></div>
+    <div class="cmd"><code>h2 ping -Q 0x68 -c 30 -i 0.2 10.0.0.4</code><button>Copy</button></div>
+    <div class="cmd"><code>h2 ping -c 30 -i 0.2 10.0.0.4</code><button>Copy</button></div>
+    <p class="purpose">The first is critical, the second is error, and the third is default.</p>
+  </div>
+
+  <div class="cmdblock">
+    <h3>7. Check the rules and queues (inside the Mininet prompt)</h3>
+    <p class="purpose">Show that the controller installed the priority rule for critical traffic, and that queue 1 received the critical packets.</p>
+    <div class="cmd"><code>sh ovs-ofctl -O OpenFlow13 dump-flows s1 | grep nw_tos=184</code><button>Copy</button></div>
+    <div class="cmd"><code>sh ovs-ofctl -O OpenFlow13 queue-stats s1</code><button>Copy</button></div>
+  </div>
+
+  <div class="cmdblock">
+    <h3>8. Baseline: same test without the controller (Terminal 2)</h3>
+    <p class="purpose">Stop Ryu first (Ctrl+C in Terminal 1). Then restart the network without the controller, so the switches forward on their own. Use a new output folder, so old data isn't mixed in.</p>
+    <div class="cmd"><code>exit</code><button>Copy</button></div>
+    <div class="cmd"><code>sudo mn -c</code><button>Copy</button></div>
+    <div class="cmd"><code>sudo python3 mininet/topology_standalone.py</code><button>Copy</button></div>
+    <p class="purpose">Then repeat steps 4 to 5 inside the Mininet prompt, with this server command:</p>
+    <div class="cmd"><code>h4 python3 udp-app/log_server.py --idle-exit 10 --out results/baseline_clean &gt; results/server_baseline_clean.txt 2&gt;&amp;1 &amp;</code><button>Copy</button></div>
+    <p class="purpose">Wait about 60 seconds, then show the report.</p>
+    <div class="cmd"><code>h4 cat results/server_baseline_clean.txt</code><button>Copy</button></div>
+  </div>
+
+  <p class="note">Run each command once. Repeating the client line starts extra clients and changes the results.</p>
+</section>
+
+<section>
+  <h2>Delay by severity: controller versus baseline</h2>
   <p class="note">Each bar is the mean of the three per-host average delays. Loss was 0% for every severity in both runs.</p>
   <div class="chart" id="chart"></div>
   <div class="legend"><i style="background:#2563eb"></i>Controller run <i style="background:#9aa5b1"></i>Baseline (no controller)</div>
@@ -107,7 +193,7 @@
 
 <section>
   <h2>Evidence</h2>
-  <p class="note">Screenshots 1 to 15 are from Goutami's run. Screenshots 16 to 19 are from Harshith's reproduction. Click any image to open it at full size.</p>
+  <p class="note">Screenshots 1 to 15 are from Goutami's run. Screenshots 16 to 19 are RUN1. Click any image to open it, then use the arrows or buttons to move between them.</p>
   <div class="grid" id="shots"></div>
   <p class="note">Raw data: <a href="evidence/final_sdn_stats.csv">controller run CSV</a> · <a href="evidence/baseline_clean_stats.csv">baseline CSV</a></p>
 </section>
@@ -122,6 +208,17 @@
 </section>
 
 </main>
+
+<div class="viewer" id="viewer">
+  <img id="vimg" src="" alt="">
+  <div class="cap" id="vcap"></div>
+  <div class="nav">
+    <button id="prev">&larr; Previous</button>
+    <button id="next">Next &rarr;</button>
+    <button class="close" id="close">Close</button>
+  </div>
+  <div class="count" id="vcount"></div>
+</div>
 
 <footer>Built from the runs in this repository. Numbers last updated from results/final_sdn and results/baseline_clean.</footer>
 
@@ -215,21 +312,60 @@ var shots = [
   ['13)latency test with congestion done 2nd time(almost same results for critical).png', 'Second congestion test, critical'],
   ['14)latency test with congestion done 2nd time(almost same results for error).png', 'Second congestion test, error'],
   ['15)flow rules installed in s1 and s2.png', 'Flow rules installed on s1 and s2'],
-  ['16)udp_run_final_udp_report.png', 'UDP log report, controller run (our run)'],
-  ['17)udp_run_topology_and_udp_start.png', 'Topology and UDP run start (our run)'],
-  ['18)udp_run_ryu_classification.png', 'Ryu classifying critical traffic (our run)'],
-  ['19)udp_run_baseline_report.png', 'UDP log report, baseline (our run)']
+  ['16)udp_run_final_udp_report.png', 'UDP log report, controller run (RUN1)'],
+  ['17)udp_run_topology_and_udp_start.png', 'Topology and UDP run start (RUN1)'],
+  ['18)udp_run_ryu_classification.png', 'Ryu classifying critical traffic (RUN1)'],
+  ['19)udp_run_baseline_report.png', 'UDP log report, baseline (RUN1)']
 ];
 
 var grid = document.getElementById('shots');
-shots.forEach(function(s){
+var viewer = document.getElementById('viewer');
+var vimg = document.getElementById('vimg');
+var vcap = document.getElementById('vcap');
+var vcount = document.getElementById('vcount');
+var current = 0;
+
+function showShot(i) {
+  current = (i + shots.length) % shots.length;
+  var s = shots[current];
+  vimg.src = 'evidence/' + encodeURIComponent(s[0]);
+  vimg.alt = s[1];
+  vcap.textContent = s[1];
+  vcount.textContent = (current + 1) + ' of ' + shots.length;
+  viewer.classList.add('open');
+}
+
+shots.forEach(function(s, i){
   var div = document.createElement('div');
   div.className = 'shot';
-  var src = 'evidence/' + encodeURIComponent(s[0]);
   div.innerHTML =
-    '<a href="' + src + '" target="_blank"><img src="' + src + '" alt="' + s[1] + '"></a>' +
+    '<img src="evidence/' + encodeURIComponent(s[0]) + '" alt="' + s[1] + '">' +
     '<div>' + s[1] + '</div>';
+  div.addEventListener('click', function(){ showShot(i); });
   grid.appendChild(div);
+});
+
+document.getElementById('prev').addEventListener('click', function(){ showShot(current - 1); });
+document.getElementById('next').addEventListener('click', function(){ showShot(current + 1); });
+document.getElementById('close').addEventListener('click', function(){ viewer.classList.remove('open'); });
+viewer.addEventListener('click', function(e){ if (e.target === viewer) viewer.classList.remove('open'); });
+
+document.addEventListener('keydown', function(e){
+  if (!viewer.classList.contains('open')) return;
+  if (e.key === 'ArrowRight') showShot(current + 1);
+  if (e.key === 'ArrowLeft') showShot(current - 1);
+  if (e.key === 'Escape') viewer.classList.remove('open');
+});
+
+document.querySelectorAll('.cmd button').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var text = btn.parentElement.querySelector('code').textContent;
+    navigator.clipboard.writeText(text).then(function(){
+      btn.textContent = 'Copied';
+      btn.classList.add('done');
+      setTimeout(function(){ btn.textContent = 'Copy'; btn.classList.remove('done'); }, 1200);
+    });
+  });
 });
 </script>
 </body>
